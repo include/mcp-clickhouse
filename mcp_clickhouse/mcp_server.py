@@ -105,10 +105,12 @@ def create_clickhouse_client():
     host = os.getenv("CLICKHOUSE_HOST")
     port = os.getenv("CLICKHOUSE_PORT")
     username = os.getenv("CLICKHOUSE_USER")
-    logger.info(f"Creating ClickHouse client connection to {host}:{port} as {username}")
+    secure = os.getenv("CLICKHOUSE_SECURE", "False")
+    logger.info(f"Creating ClickHouse client connection to {host}:{port} as {username}, secure={secure}")
     return clickhouse_connect.get_client(
         host=host,
         port=port,
         username=username,
         password=os.getenv("CLICKHOUSE_PASSWORD"),
+        secure=secure
     )
